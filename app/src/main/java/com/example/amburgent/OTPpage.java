@@ -20,7 +20,7 @@ import com.google.firebase.auth.PhoneAuthProvider;
 
 import java.util.concurrent.TimeUnit;
 
-public class otp extends AppCompatActivity {
+public class OTPpage extends AppCompatActivity {
 
     Pinview pin;
     String phoneNumber,otpID,Otp;

@@ -25,9 +25,10 @@ public class SignUppage extends AppCompatActivity {
 
     }
     public void sign_in(View v){
-        phoneNumber = phone.getText().toString();
+        //you have to add country code
+        phoneNumber ="+88"+phone.getText().toString();
 
-        Intent intent = new Intent(getApplicationContext(),otp.class);
+        Intent intent = new Intent(getApplicationContext(), OTPpage.class);
         intent.putExtra("phoneNumber",phoneNumber);
         startActivity(intent);
     }

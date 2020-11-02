@@ -12,7 +12,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2.2"
+        android:layout_weight="1.5"
         android:gravity="center">
 
     </LinearLayout>
@@ -21,12 +21,17 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:layout_margin="10dp"
         android:gravity="center"
         >
         <TextView
             android:layout_width="370dp"
             android:layout_height="70dp"
-            android:background="@drawable/ic_sentcodetext"/>
+            android:paddingBottom="20dp"
+            android:gravity="center"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:text="We Send A Verification Code To Your Phone.Please Enter It To Verify."/>
 
     </LinearLayout>
 

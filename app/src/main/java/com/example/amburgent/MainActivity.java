@@ -32,8 +32,6 @@ public class MainActivity extends AppCompatActivity {
         progressDialog.setMessage("Please wait....");
         progressDialog.show();
         firebaseUser = firebaseAuth.getCurrentUser();
-
-
         handler=new Handler();
         runnable=new Runnable() {
             @Override
@@ -41,10 +39,12 @@ public class MainActivity extends AppCompatActivity {
                 progressDialog.dismiss();
                 if(firebaseUser!=null) {
                     startActivity(new Intent(getApplicationContext(), MainActivity2.class));
+                    finish();
                 }
                 else{
-                    finish();
+
                     startActivity(new Intent(getApplicationContext(),SignUppage.class));
+                    finish();
                 }
             }
         };

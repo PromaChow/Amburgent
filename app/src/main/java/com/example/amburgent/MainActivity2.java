@@ -27,6 +27,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class MainActivity2 extends AppCompatActivity implements  PopupMenu.OnMenuItemClickListener {
@@ -36,19 +37,15 @@ public class MainActivity2 extends AppCompatActivity implements  PopupMenu.OnMen
     Toolbar toolbar;
     ImageView imageView;
     String  imgUri;
-    String code,Id;
+    String user_id="";
 
-    private FirebaseAuth mAuth;
+    private FirebaseAuth mAuth=FirebaseAuth.getInstance();
     FirebaseFirestore db=FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_dashboard);
-        Intent intent = getIntent();
-        code = intent.getStringExtra("code");
-        Id = intent.getStringExtra("id");
-        Toast.makeText(getApplicationContext(),code,Toast.LENGTH_LONG).show();
 
         drawer = findViewById(R.id.drawer_layout);
         nav = findViewById(R.id.nav_view);
@@ -58,21 +55,18 @@ public class MainActivity2 extends AppCompatActivity implements  PopupMenu.OnMen
 
 
 
+        if(mAuth.getCurrentUser()!=null){
+            user_id=mAuth.getCurrentUser().getUid();
+            DocumentReference docRef = db.collection("users").document(user_id);
+            docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    imgUri = documentSnapshot.get("PhotoUrl").toString();
+                    if(imgUri.length()>0) Picasso.get().load(imgUri).into(imageView);
 
-
-            DocumentReference docRef = db.collection("Users").document(Id);
-           docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-               @Override
-               public void onSuccess(DocumentSnapshot documentSnapshot) {
-                   imgUri = documentSnapshot.get("PhotoUrl").toString();
-                   Picasso.get().load(imgUri).into(imageView);
-
-               }
-           });
-
-
-
-
+                }
+            });
+        }
 
 
 
@@ -119,14 +113,12 @@ public class MainActivity2 extends AppCompatActivity implements  PopupMenu.OnMen
     public void log_out(View view) {
 
 
-
-
-
 //        LoginManager login_manager= LoginManager.getInstance();
 //        login_manager.logOut();
         FirebaseAuth.getInstance().signOut();
         Intent intent = new Intent(getApplicationContext(), SignUppage.class);
         startActivity(intent);
+        finish();
 
     }
 

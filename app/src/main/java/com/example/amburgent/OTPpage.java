@@ -46,7 +46,6 @@ public class OTPpage extends AppCompatActivity {
         phoneNumber =   intent.getStringExtra("phoneNumber");
         name = intent.getStringExtra("name");
         mAuth   =   FirebaseAuth.getInstance();
-
         getOTP();
 
 
@@ -61,11 +60,9 @@ public class OTPpage extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),"INVALID OTP",Toast.LENGTH_LONG).show();
         }
         else{
-
-            Toast.makeText(getApplicationContext(),"ELSE CALLED"+otpID+" "+Otp,Toast.LENGTH_LONG).show();
-//            PhoneAuthCredential credential;
-//            credential =  PhoneAuthProvider.getCredential(otpID, Otp);
-//            signInWithPhoneAuthCredential(credential);
+            PhoneAuthCredential credential;
+            credential =  PhoneAuthProvider.getCredential(otpID, Otp);
+            signInWithPhoneAuthCredential(credential);
         }
     }
 
@@ -107,10 +104,10 @@ public class OTPpage extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(getApplicationContext(),"SUCCESSFUL",Toast.LENGTH_LONG).show();
-//                            FirebaseUser user = task.getResult().getUser();
-//                            Intent intent   =   new Intent(getApplicationContext(),MainActivity2.class);
-//                            startActivity(intent);
+                            updateUI_phone(mAuth.getCurrentUser());
+                            Intent intent   =   new Intent(getApplicationContext(),MainActivity2.class);
+                            startActivity(intent);
+                            finish();
 
                         } else {
 
